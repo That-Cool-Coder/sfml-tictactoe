@@ -2,6 +2,7 @@
 
 TicTacToeGame::TicTacToeGame()
 {
+    loadFont();
     createWindow();
     createBoard();
 }
@@ -12,6 +13,24 @@ TicTacToeGame::TicTacToeGame(int width, int height)
     m_height = height;
     createWindow();
     createBoard();
+}
+
+void TicTacToeGame::loadFont()
+{
+    if (! m_font.loadFromFile(m_fontFileName))
+    {
+        std::cout << "Could not load font from file " +
+            m_fontFileName + "\n";
+        std::cout << "The program will probably not work properly\n";
+    }
+}
+
+void TicTacToeGame::createText()
+{
+    m_playerPrompt.setFont(m_font);
+    m_playerPrompt.setCharacterSize(m_topBarHeight - 5);
+    m_playerPrompt.setFillColor(m_textColor);
+    m_textEntities.push_back(m_playerPrompt);
 }
 
 void TicTacToeGame::createWindow()
@@ -60,10 +79,14 @@ void TicTacToeGame::mainLoop()
         case Playing:
             drawCellBorders();
             drawCells();
+            updateText();
+            drawText();
             break;
         case ShowingWinner:
             drawCellBorders();
             drawCells();
+            updateText();
+            drawText();
             break;
         }
         m_window.display();
@@ -74,6 +97,36 @@ void TicTacToeGame::startNewGame()
 {
     m_board.clear();
     m_crntPlayer = Cross; // todo: set this randomly
+}
+
+void TicTacToeGame::updateText()
+{
+    centerAlignText(m_playerPrompt);
+    m_playerPrompt.setPosition(30, 30);
+    switch (m_crntPlayer)
+    {
+    case Cross:
+        m_playerPrompt.setString("Player 1 turn");
+        break;
+    case Nought:
+        m_playerPrompt.setString("Player 2 turn");
+        break;
+    }
+}
+
+void TicTacToeGame::centerAlignText(sf::Text &text)
+{
+    sf::FloatRect textRect = text.getLocalBounds();
+    text.setOrigin(textRect.left + textRect.width/2.0f,
+        textRect.top  + textRect.height/2.0f);
+}
+
+void TicTacToeGame::drawText()
+{
+    for (auto text : m_textEntities)
+    {
+        m_window.draw(text);
+    }
 }
 
 void TicTacToeGame::calcBoardSize()
