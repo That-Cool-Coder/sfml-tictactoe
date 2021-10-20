@@ -1,18 +1,19 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.12)
 
 project(tictactoe)
-
-## If you want to link SFML statically
-# set(SFML_STATIC_LIBRARIES TRUE)
-
-## In most cases better set in the CMake cache
-# set(SFML_DIR "<sfml root prefix>/lib/cmake/SFML")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 file(GLOB SOURCES "src/*.cpp")
 
-find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
+if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/yacpm.cmake")
+    file(DOWNLOAD "https://github.com/Calbabreaker/yacpm/raw/v1/yacpm.cmake" "${CMAKE_CURRENT_BINARY_DIR}/yacpm.cmake")
+endif()
+
+include(${CMAKE_CURRENT_BINARY_DIR}/yacpm.cmake)
+yacpm_use_extended()
+
 add_executable(tictactoe ${SOURCES})
-target_link_libraries(tictactoe sfml-graphics sfml-audio)
+target_link_libraries(${PROJECT_NAME} ${YACPM_PKGS})
+
