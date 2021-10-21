@@ -5,6 +5,7 @@ TicTacToeGame::TicTacToeGame()
     loadFont();
     createWindow();
     createBoard();
+    createText();
 }
 
 TicTacToeGame::TicTacToeGame(int width, int height)
@@ -13,6 +14,7 @@ TicTacToeGame::TicTacToeGame(int width, int height)
     m_height = height;
     createWindow();
     createBoard();
+    createText();
 }
 
 void TicTacToeGame::loadFont()
@@ -28,9 +30,9 @@ void TicTacToeGame::loadFont()
 void TicTacToeGame::createText()
 {
     m_playerPrompt.setFont(m_font);
-    m_playerPrompt.setCharacterSize(m_topBarHeight - 5);
+    m_playerPrompt.setCharacterSize(m_topBarHeight - 15);
     m_playerPrompt.setFillColor(m_textColor);
-    m_textEntities.push_back(m_playerPrompt);
+    m_textEntities.push_back(std::ref(m_playerPrompt));
 }
 
 void TicTacToeGame::createWindow()
@@ -101,8 +103,6 @@ void TicTacToeGame::startNewGame()
 
 void TicTacToeGame::updateText()
 {
-    centerAlignText(m_playerPrompt);
-    m_playerPrompt.setPosition(30, 30);
     switch (m_crntPlayer)
     {
     case Cross:
@@ -112,6 +112,8 @@ void TicTacToeGame::updateText()
         m_playerPrompt.setString("Player 2 turn");
         break;
     }
+    centerAlignText(m_playerPrompt);
+    m_playerPrompt.setPosition(m_width / 2, m_topBarHeight / 2);
 }
 
 void TicTacToeGame::centerAlignText(sf::Text &text)

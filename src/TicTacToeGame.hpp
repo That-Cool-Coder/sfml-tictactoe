@@ -2,6 +2,7 @@
 #include <math.h>
 #include <iostream>
 #include <vector>
+#include <functional>
 #include <SFML/Graphics.hpp>
 #include "TicTacToeBoard.hpp"
 #include "NoughtGraphic.hpp"
@@ -33,7 +34,7 @@ private:
     const int m_windowPadding = 20;
     const float m_cellPaddingProportion = 0.2; // proportion of cell to fill
     const float m_cellBorderWidthProportion = 0.025; // proportion of window width to use
-    std::vector<sf::Text> m_textEntities;
+    std::vector<std::reference_wrapper<sf::Text>> m_textEntities;
     int m_width = 400;
     int m_height = 450;
     int m_boardSize;
