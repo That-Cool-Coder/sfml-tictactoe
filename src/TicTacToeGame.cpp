@@ -1,9 +1,9 @@
 #include "TicTacToeGame.hpp"
+#include "GameManager.hpp"
 
 void TicTacToeGame::setup()
 {
     loadFont();
-    createWindow();
     createBoard();
     createText();
     startNewGame();

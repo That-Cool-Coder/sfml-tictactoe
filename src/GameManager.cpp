@@ -40,7 +40,10 @@ void GameManager::mainLoop()
                 
             }
         }
-        m_crntScene->managerUpdate();
+        if (m_crntScene)
+        {
+            m_crntScene->managerUpdate();
+        }
         window.display();
     }
 }

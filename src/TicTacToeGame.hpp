@@ -51,7 +51,6 @@ private:
     void loadFont();
     void createText();
     void calcBoardSize();
-    void createWindow();
     void drawCellBorders();
     void drawCells();
     void updateText();
