@@ -40,17 +40,17 @@ void GameManager::mainLoop()
                 
             }
         }
-        m_crntScene.managerUpdate();
+        m_crntScene->managerUpdate();
         window.display();
     }
 }
 
-void GameManager::selectScene(Scene& scene)
+void GameManager::selectScene(Scene* scene)
 {
     m_crntScene = scene;
 }
 
-void GameManager::queueSelectScene(Scene& scene)
+void GameManager::queueSelectScene(Scene* scene)
 {
     m_nextScene = scene;
 }

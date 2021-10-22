@@ -10,8 +10,8 @@ public:
     GameManager(std::string i_windowName, int width, int height);
     
     void mainLoop();
-    void selectScene(Scene& scene);
-    void queueSelectScene(Scene& scene);
+    void selectScene(Scene* scene);
+    void queueSelectScene(Scene* scene);
 
     sf::RenderWindow window;
     std::string windowName = "Unnamed window";
@@ -21,6 +21,6 @@ public:
 private:
     void setupWindow();
 
-    Scene m_crntScene;
-    Scene m_nextScene;
+    Scene* m_crntScene;
+    Scene* m_nextScene;
 };

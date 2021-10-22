@@ -1,4 +1,5 @@
 #include "Scene.hpp"
+#include "GameManager.hpp"
 
 Scene::Scene()
 {
