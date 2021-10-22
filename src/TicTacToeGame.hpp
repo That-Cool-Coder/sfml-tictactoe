@@ -7,6 +7,7 @@
 #include "TicTacToeBoard.hpp"
 #include "NoughtGraphic.hpp"
 #include "CrossGraphic.hpp"
+#include "Scene.hpp"
 
 enum GamePhase
 {
@@ -15,13 +16,11 @@ enum GamePhase
     ShowingWinner
 };
 
-class TicTacToeGame
+class TicTacToeGame : public Scene
 {
 public:
-    TicTacToeGame();
-    TicTacToeGame(int width, int height);
-    void mainLoop();
     void startNewGame();
+    void mainLoop();
 
 private:
     // Drawing stuff
@@ -44,7 +43,10 @@ private:
     const std::string m_fontFileName = "SpaceGrotesk-Regular.otf";
     sf::Font m_font;
     sf::Text m_playerPrompt;
-    sf::RenderWindow m_window;
+
+    void setup();
+    void update();
+    void handleEvent(sf::Event event);
 
     void loadFont();
     void createText();

@@ -1,20 +1,12 @@
 #include "TicTacToeGame.hpp"
 
-TicTacToeGame::TicTacToeGame()
+void TicTacToeGame::setup()
 {
     loadFont();
     createWindow();
     createBoard();
     createText();
-}
-
-TicTacToeGame::TicTacToeGame(int width, int height)
-{
-    m_width = width;
-    m_height = height;
-    createWindow();
-    createBoard();
-    createText();
+    startNewGame();
 }
 
 void TicTacToeGame::loadFont()
@@ -35,11 +27,6 @@ void TicTacToeGame::createText()
     m_textEntities.push_back(std::ref(m_playerPrompt));
 }
 
-void TicTacToeGame::createWindow()
-{
-    m_window.create(sf::VideoMode(m_width, m_height), "Tic Tac Toe");
-}
-
 void TicTacToeGame::createBoard()
 {
     m_board = TicTacToeBoard();
@@ -47,51 +34,82 @@ void TicTacToeGame::createBoard()
 
 void TicTacToeGame::mainLoop()
 {
-    startNewGame();
-    while (m_window.isOpen())
-    {
-        calcBoardSize();
-        m_window.clear(m_backgroundColor);
+    // while (m_window.isOpen())
+    // {
+    //     calcBoardSize();
+    //     m_window.clear(m_backgroundColor);
 
-        sf::Event event;
-        while (m_window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed) m_window.close();
-            // catch the resize events
-            if (event.type == sf::Event::Resized)
-            {
-                // update the view to the new size of the window
-                m_width = event.size.width;
-                m_height = event.size.height;
-                sf::FloatRect visibleArea(0, 0, m_width,  m_height);
-                m_window.setView(sf::View(visibleArea));
-            }
-            if (event.type == sf::Event::MouseButtonPressed)
-            {
-                switch (m_gamePhase)
-                {
-                case Playing:
-                    setCellContents(event);
-                    break;
-                }
-            }
-        }
+    //     sf::Event event;
+    //     while (m_window.pollEvent(event))
+    //     {
+    //         if (event.type == sf::Event::Closed) m_window.close();
+    //         // catch the resize events
+    //         if (event.type == sf::Event::Resized)
+    //         {
+    //             // update the view to the new size of the window
+    //             m_width = event.size.width;
+    //             m_height = event.size.height;
+    //             sf::FloatRect visibleArea(0, 0, m_width,  m_height);
+    //             m_window.setView(sf::View(visibleArea));
+    //         }
+    //         if (event.type == sf::Event::MouseButtonPressed)
+    //         {
+    //             switch (m_gamePhase)
+    //             {
+    //             case Playing:
+    //                 setCellContents(event);
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     switch (m_gamePhase)
+    //     {
+    //     case Playing:
+    //         drawCellBorders();
+    //         drawCells();
+    //         updateText();
+    //         drawText();
+    //         break;
+    //     case ShowingWinner:
+    //         drawCellBorders();
+    //         drawCells();
+    //         updateText();
+    //         drawText();
+    //         break;
+    //     }
+    // }
+}
+
+void TicTacToeGame::update()
+{
+    calcBoardSize();
+    switch (m_gamePhase)
+    {
+    case Playing:
+        drawCellBorders();
+        drawCells();
+        updateText();
+        drawText();
+        break;
+    case ShowingWinner:
+        drawCellBorders();
+        drawCells();
+        updateText();
+        drawText();
+        break;
+    }
+}
+
+void TicTacToeGame::handleEvent(sf::Event event)
+{
+    if (event.type == sf::Event::MouseButtonPressed)
+    {
         switch (m_gamePhase)
         {
         case Playing:
-            drawCellBorders();
-            drawCells();
-            updateText();
-            drawText();
-            break;
-        case ShowingWinner:
-            drawCellBorders();
-            drawCells();
-            updateText();
-            drawText();
+            setCellContents(event);
             break;
         }
-        m_window.display();
     }
 }
 
@@ -127,7 +145,7 @@ void TicTacToeGame::drawText()
 {
     for (auto text : m_textEntities)
     {
-        m_window.draw(text);
+        gameManager->window.draw(text);
     }
 }
 
@@ -153,7 +171,7 @@ void TicTacToeGame::drawCellBorders()
     {
         rectangle.setPosition(m_boardLeft + m_boardSize / 2,
             m_boardTop + y * m_cellSize);
-        m_window.draw(rectangle);
+        gameManager->window.draw(rectangle);
     }
 
     // Do the vertical borders
@@ -162,7 +180,7 @@ void TicTacToeGame::drawCellBorders()
     {
         rectangle.setPosition(m_boardLeft + x * m_cellSize,
             m_boardTop + m_boardSize / 2);
-        m_window.draw(rectangle);
+        gameManager->window.draw(rectangle);
     }
 }
 
@@ -179,9 +197,9 @@ void TicTacToeGame::drawCells()
             int xPos = x * m_cellSize + m_cellSize / 2 + m_boardLeft;
             int yPos = y * m_cellSize + m_cellSize / 2 + m_boardTop;
             if (m_board.getCell(x, y) == Nought)
-                nought.draw(xPos, yPos, m_window, m_backgroundColor);
+                nought.draw(xPos, yPos, gameManager->window, m_backgroundColor);
             else if (m_board.getCell(x, y) == Cross)
-                cross.draw(xPos, yPos, m_window);
+                cross.draw(xPos, yPos, gameManager->window);
         }
     }
 }

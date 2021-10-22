@@ -20,6 +20,7 @@ public:
 private:
     void setup();
     void update();
+    void handleEvent(sf::Event event);
 
     sf::Color m_backgroundColor = sf::Color::Black;
 };

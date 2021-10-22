@@ -37,3 +37,8 @@ void Scene::update()
 {
     std::cout << "Scene update not overridden\n";
 }
+
+void Scene::handleEvent(sf::Event event)
+{
+    std::cout << "Scene handle event not overridden\n";
+}
