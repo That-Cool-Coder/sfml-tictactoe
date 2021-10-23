@@ -29,7 +29,7 @@ private:
     const sf::Color m_backgroundColor = sf::Color(20, 20, 20);
     const sf::Color m_cellBorderColor = sf::Color(70, 70, 70);
     const sf::Color m_textColor = sf::Color::White;
-    const int m_topBarHeight = 50;
+    const int m_topBarHeight = 60;
     const int m_bottomBarHeight = 30;
     const int m_windowPadding = 20;
     const float m_cellPaddingProportion = 0.2; // proportion of cell to fill
