@@ -159,8 +159,10 @@ void TicTacToeGame::calcBoardSize()
     int availableHeight = gameManager->height - m_topBarHeight - m_bottomBarHeight;
     m_boardSize = std::min(availableHeight - m_windowPadding, gameManager->width - m_windowPadding * 2);
     m_cellSize = m_boardSize / 3;
-    m_boardLeft = (gameManager->width - m_boardSize) / 2;
-    m_boardTop = (gameManager->height - m_boardSize) / 2;
+
+    // Use min here to avoid divide-by-zero possibility
+    m_boardLeft = std::min(gameManager->width - m_boardSize, 1) / 2;
+    m_boardTop = std::min(gameManager->height - m_boardSize, 1) / 2;
 }
 
 void TicTacToeGame::drawCellBorders()
