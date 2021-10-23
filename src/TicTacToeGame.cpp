@@ -47,9 +47,9 @@ void TicTacToeGame::mainLoop()
     //         if (event.type == sf::Event::Resized)
     //         {
     //             // update the view to the new size of the window
-    //             m_width = event.size.width;
-    //             m_height = event.size.height;
-    //             sf::FloatRect visibleArea(0, 0, m_width,  m_height);
+    //             gameManager->width = event.size.width;
+    //             gameManager->height = event.size.height;
+    //             sf::FloatRect visibleArea(0, 0, gameManager->width,  gameManager->height);
     //             m_window.setView(sf::View(visibleArea));
     //         }
     //         if (event.type == sf::Event::MouseButtonPressed)
@@ -100,7 +100,7 @@ void TicTacToeGame::update()
     }
 }
 
-void TicTacToeGame::handleEvent(sf::Event event)
+void TicTacToeGame::handleEvent(sf::Event& event)
 {
     if (event.type == sf::Event::MouseButtonPressed)
     {
@@ -131,7 +131,7 @@ void TicTacToeGame::updateText()
         break;
     }
     centerAlignText(m_playerPrompt);
-    m_playerPrompt.setPosition(m_width / 2, m_topBarHeight / 2);
+    m_playerPrompt.setPosition(gameManager->width / 2, m_topBarHeight / 2);
 }
 
 void TicTacToeGame::centerAlignText(sf::Text &text)
@@ -151,11 +151,11 @@ void TicTacToeGame::drawText()
 
 void TicTacToeGame::calcBoardSize()
 {
-    int availableHeight = m_height - m_topBarHeight - m_bottomBarHeight;
-    m_boardSize = std::min(availableHeight, m_width) - m_windowPadding * 2;
+    int availableHeight = gameManager->height - m_topBarHeight - m_bottomBarHeight;
+    m_boardSize = std::min(availableHeight, gameManager->width) - m_windowPadding * 2;
     m_cellSize = m_boardSize / 3;
-    m_boardLeft = (m_width - m_boardSize) / 2;
-    m_boardTop = (m_height - m_boardSize) / 2;
+    m_boardLeft = (gameManager->width - m_boardSize) / 2;
+    m_boardTop = (gameManager->height - m_boardSize) / 2;
 }
 
 void TicTacToeGame::drawCellBorders()

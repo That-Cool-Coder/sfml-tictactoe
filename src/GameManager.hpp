@@ -21,6 +21,6 @@ public:
 private:
     void setupWindow();
 
-    Scene* m_crntScene;
-    Scene* m_nextScene;
+    Scene* m_crntScene = nullptr;
+    Scene* m_nextScene = nullptr;
 };

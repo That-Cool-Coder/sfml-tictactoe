@@ -8,6 +8,7 @@ GameManager::GameManager()
 GameManager::GameManager(std::string i_windowName)
 {
     windowName = i_windowName;
+    setupWindow();
 }
 
 GameManager::GameManager(std::string i_windowName, int i_width, int i_height)
@@ -15,13 +16,13 @@ GameManager::GameManager(std::string i_windowName, int i_width, int i_height)
     windowName = i_windowName;
     width = i_width;
     height = i_height;
+    setupWindow();
 }
 
 void GameManager::mainLoop()
 {
     while (window.isOpen())
     {
-
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -37,10 +38,13 @@ void GameManager::mainLoop()
             }
             if (event.type == sf::Event::MouseButtonPressed)
             {
-                
+                if (m_crntScene != nullptr)
+                {
+                    m_crntScene->managerHandleEvent(event);
+                }
             }
         }
-        if (m_crntScene)
+        if (m_crntScene != nullptr)
         {
             m_crntScene->managerUpdate();
         }
@@ -51,6 +55,8 @@ void GameManager::mainLoop()
 void GameManager::selectScene(Scene* scene)
 {
     m_crntScene = scene;
+    m_crntScene->gameManager = this;
+    m_crntScene->managerSetup();
 }
 
 void GameManager::queueSelectScene(Scene* scene)

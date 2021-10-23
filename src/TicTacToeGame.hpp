@@ -34,8 +34,6 @@ private:
     const float m_cellPaddingProportion = 0.2; // proportion of cell to fill
     const float m_cellBorderWidthProportion = 0.025; // proportion of window width to use
     std::vector<std::reference_wrapper<sf::Text>> m_textEntities;
-    int m_width = 400;
-    int m_height = 450;
     int m_boardSize;
     int m_cellSize;
     int m_boardLeft;
@@ -46,7 +44,7 @@ private:
 
     void setup();
     void update();
-    void handleEvent(sf::Event event);
+    void handleEvent(sf::Event& event);
 
     void loadFont();
     void createText();

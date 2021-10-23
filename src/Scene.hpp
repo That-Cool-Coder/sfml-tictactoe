@@ -12,15 +12,16 @@ public:
     Scene(std::string i_name, sf::Color backgroundColor);
 
     std::string name = "";
-    GameManager* gameManager;
+    GameManager* gameManager = nullptr;
 
     void managerSetup();
     void managerUpdate();
+    void managerHandleEvent(sf::Event& event);
 
 private:
-    void setup();
-    void update();
-    void handleEvent(sf::Event event);
+    virtual void setup();
+    virtual void update();
+    virtual void handleEvent(sf::Event& event);
 
     sf::Color m_backgroundColor = sf::Color::Black;
 };

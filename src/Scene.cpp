@@ -28,6 +28,11 @@ void Scene::managerUpdate()
     update();
 }
 
+void Scene::managerHandleEvent(sf::Event& event)
+{
+    handleEvent(event);
+}
+
 void Scene::setup()
 {
     std::cout << "Scene setup not overridden\n";
@@ -38,7 +43,7 @@ void Scene::update()
     std::cout << "Scene update not overridden\n";
 }
 
-void Scene::handleEvent(sf::Event event)
+void Scene::handleEvent(sf::Event& event)
 {
     std::cout << "Scene handle event not overridden\n";
 }
