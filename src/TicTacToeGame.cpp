@@ -3,6 +3,7 @@
 
 void TicTacToeGame::setup()
 {
+    setupPlayerPromptMatrix();
     loadFont();
     createBoard();
     createText();
@@ -21,6 +22,7 @@ void TicTacToeGame::loadFont()
 
 void TicTacToeGame::createText()
 {
+    m_textEntities.clear();
     m_playerPrompt.setFont(m_font);
     m_playerPrompt.setCharacterSize(m_topBarHeight - 15);
     m_playerPrompt.setFillColor(m_textColor);
@@ -30,6 +32,14 @@ void TicTacToeGame::createText()
 void TicTacToeGame::createBoard()
 {
     m_board = TicTacToeBoard();
+}
+
+void TicTacToeGame::setupPlayerPromptMatrix()
+{
+    m_playerPromptMatrix[Playing][Cross] = "Cross turn";
+    m_playerPromptMatrix[Playing][Nought] = "Nought turn";
+    m_playerPromptMatrix[ShowingWinner][Cross] = "Crosses wins";
+    m_playerPromptMatrix[ShowingWinner][Nought] = "Noughts wins";
 }
 
 void TicTacToeGame::mainLoop()
@@ -96,6 +106,9 @@ void TicTacToeGame::update()
         drawCells();
         updateText();
         drawText();
+        gameManager->forceRedraw();
+        sf::sleep(sf::seconds(m_showWinnerDuration));
+        gameManager->queueSelectScene(new TicTacToeGame());
         break;
     }
 }
@@ -121,15 +134,7 @@ void TicTacToeGame::startNewGame()
 
 void TicTacToeGame::updateText()
 {
-    switch (m_crntPlayer)
-    {
-    case Cross:
-        m_playerPrompt.setString("Player 1 turn");
-        break;
-    case Nought:
-        m_playerPrompt.setString("Player 2 turn");
-        break;
-    }
+    m_playerPrompt.setString(m_playerPromptMatrix[m_gamePhase][m_crntPlayer]);
     centerAlignText(m_playerPrompt);
     m_playerPrompt.setPosition(gameManager->width / 2, m_topBarHeight / 2);
 }

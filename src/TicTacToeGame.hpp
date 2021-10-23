@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <functional>
+#include <map>
 #include <SFML/Graphics.hpp>
 #include "TicTacToeBoard.hpp"
 #include "NoughtGraphic.hpp"
@@ -61,6 +62,9 @@ private:
     TicTacToeBoard m_board;
     CellValue m_crntPlayer;
     GamePhase m_gamePhase = Playing;
+    const float m_showWinnerDuration = 2.0f;
+    std ::map<GamePhase, std::map<CellValue, std::string>> m_playerPromptMatrix;
 
     void createBoard();
+    void setupPlayerPromptMatrix();
 };

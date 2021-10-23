@@ -3,7 +3,7 @@
 
 int main()
 {
-    GameManager gameManager;
+    GameManager gameManager("Tic Tac Toe");
     TicTacToeGame* game = new TicTacToeGame();
     gameManager.selectScene(game);
     gameManager.mainLoop();

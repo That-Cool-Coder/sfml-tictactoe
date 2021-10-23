@@ -23,6 +23,7 @@ void GameManager::mainLoop()
 {
     while (window.isOpen())
     {
+        m_frameClock.restart();
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -49,19 +50,37 @@ void GameManager::mainLoop()
             m_crntScene->managerUpdate();
         }
         window.display();
+
+        // Try and get as close to n fps as possible
+        float frameTime = m_frameClock.getElapsedTime().asSeconds();
+        float timeSlept = std::min(0.0f, m_frameRate - frameTime);
+        sf::sleep(sf::seconds(timeSlept));
+        deltaTime = frameTime + timeSlept;
+
+        // If there's a scene queued to be selected, select it now that we're at the end of a frame
+        if (m_queuedScene != m_crntScene && m_queuedScene != nullptr)
+        {
+            selectScene(m_queuedScene);
+        }
     }
 }
 
 void GameManager::selectScene(Scene* scene)
 {
     m_crntScene = scene;
+    m_queuedScene = scene; // clear the queue
     m_crntScene->gameManager = this;
     m_crntScene->managerSetup();
 }
 
 void GameManager::queueSelectScene(Scene* scene)
 {
-    m_nextScene = scene;
+    m_queuedScene = scene;
+}
+
+void GameManager::forceRedraw()
+{
+    window.display();
 }
 
 void GameManager::setupWindow()
