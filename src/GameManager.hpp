@@ -1,4 +1,6 @@
 #pragma once
+#include <map>
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include "Scene.hpp"
 
@@ -10,11 +12,14 @@ public:
     GameManager(std::string i_windowName, int width, int height);
     
     void mainLoop();
-    void selectScene(Scene* scene);
-    void queueSelectScene(Scene* scene);
+    void loadScene(std::string sceneName);
+    void loadScene(std::shared_ptr<Scene> scene);
+    void queueLoadScene(std::string sceneName);
+    void queueLoadScene(std::shared_ptr<Scene> scene);
     void forceRedraw();
 
     sf::RenderWindow window;
+    std::map<std::string, std::function<std::shared_ptr<Scene>()>> scenes;
     std::string windowName = "Unnamed window";
     int width = 500;
     int height = 500;
@@ -23,8 +28,8 @@ public:
 private:
     void setupWindow();
 
-    Scene* m_crntScene = nullptr;
-    Scene* m_queuedScene = nullptr;
+    std::shared_ptr<Scene> m_crntScene = nullptr;
+    std::shared_ptr<Scene> m_queuedScene = nullptr;
     const float m_frameRate = 1.0f / 60.0f;
     sf::Clock m_frameClock;
 };

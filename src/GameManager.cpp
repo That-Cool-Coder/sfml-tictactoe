@@ -60,20 +60,40 @@ void GameManager::mainLoop()
         // If there's a scene queued to be selected, select it now that we're at the end of a frame
         if (m_queuedScene != m_crntScene && m_queuedScene != nullptr)
         {
-            selectScene(m_queuedScene);
+            loadScene(m_queuedScene);
         }
     }
 }
 
-void GameManager::selectScene(Scene* scene)
+void GameManager::loadScene(std::string sceneName)
+{
+    if (scenes.find(sceneName) == scenes.end())
+    {
+        std::cout << "Tried selecting scene that does not exist";
+        return;
+    }
+    loadScene(scenes[sceneName]());
+}
+
+void GameManager::loadScene(std::shared_ptr<Scene> scene)
 {
     m_crntScene = scene;
-    m_queuedScene = scene; // clear the queue
+    m_queuedScene = m_crntScene; // clear the queue
     m_crntScene->gameManager = this;
     m_crntScene->managerSetup();
 }
 
-void GameManager::queueSelectScene(Scene* scene)
+void GameManager::queueLoadScene(std::string sceneName)
+{
+    if (scenes.find(sceneName) == scenes.end())
+    {
+        std::cout << "Tried selecting scene that does not exist";
+        return;
+    }
+    m_queuedScene = scenes[sceneName]();
+}
+
+void GameManager::queueLoadScene(std::shared_ptr<Scene> scene)
 {
     m_queuedScene = scene;
 }

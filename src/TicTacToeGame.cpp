@@ -108,7 +108,7 @@ void TicTacToeGame::update()
         drawText();
         gameManager->forceRedraw();
         sf::sleep(sf::seconds(m_showWinnerDuration));
-        gameManager->queueSelectScene(new TicTacToeGame());
+        gameManager->queueLoadScene("TicTacToeGame");
         break;
     }
 }
