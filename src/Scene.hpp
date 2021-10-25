@@ -12,6 +12,7 @@ public:
     Scene(std::string i_name, sf::Color backgroundColor);
 
     std::string name = "";
+    // Yes pointers are not very modern but it's annoying typing '.get()' on the alternatives 
     GameManager* gameManager = nullptr;
 
     void managerSetup();
