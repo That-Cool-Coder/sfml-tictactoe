@@ -26,6 +26,10 @@ void Scene::managerUpdate()
 {
     gameManager->window.clear(m_backgroundColor);
     update();
+    for (auto d : m_drawables)
+    {
+        gameManager->window.draw(d);
+    }
 }
 
 void Scene::managerHandleEvent(sf::Event& event)

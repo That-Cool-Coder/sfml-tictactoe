@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include <SFML/Graphics.hpp>
 
 class GameManager;
@@ -25,4 +26,6 @@ private:
     virtual void handleEvent(sf::Event& event);
 
     sf::Color m_backgroundColor = sf::Color::Black;
+protected:
+    std::vector<std::reference_wrapper<sf::Drawable>> m_drawables;
 };

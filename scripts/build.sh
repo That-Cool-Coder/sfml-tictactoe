@@ -2,5 +2,5 @@
 cd "${0%/*}" # cd to folder containing this file
 cd ../build
 
-cmake ..
+cmake .. -Wno-dev
 cmake --build . --parallel $(nproc)

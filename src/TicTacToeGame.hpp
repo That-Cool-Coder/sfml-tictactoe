@@ -5,10 +5,12 @@
 #include <functional>
 #include <map>
 #include <SFML/Graphics.hpp>
+#include "shared.hpp"
+#include "GameManager.hpp"
+#include "Scene.hpp"
 #include "TicTacToeBoard.hpp"
 #include "NoughtGraphic.hpp"
 #include "CrossGraphic.hpp"
-#include "Scene.hpp"
 
 enum GamePhase
 {
@@ -19,10 +21,6 @@ enum GamePhase
 
 class TicTacToeGame : public Scene
 {
-public:
-    void startNewGame();
-    void mainLoop();
-
 private:
     // Drawing stuff
     // -------------
@@ -39,8 +37,6 @@ private:
     int m_cellSize;
     int m_boardLeft;
     int m_boardTop;
-    const std::string m_fontFileName = "SpaceGrotesk-Regular.otf";
-    sf::Font m_font;
     sf::Text m_playerPrompt;
 
     void setup();
