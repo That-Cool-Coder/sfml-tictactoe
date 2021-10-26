@@ -5,7 +5,7 @@ project(tictactoe)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-file(GLOB SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES "src/*.cpp")
 
 if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/yacpm.cmake")
     file(DOWNLOAD "https://github.com/Calbabreaker/yacpm/raw/v1/yacpm.cmake" "${CMAKE_CURRENT_BINARY_DIR}/yacpm.cmake")

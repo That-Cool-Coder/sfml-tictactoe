@@ -6,8 +6,7 @@
 #include <map>
 #include <SFML/Graphics.hpp>
 #include "shared.hpp"
-#include "GameManager.hpp"
-#include "Scene.hpp"
+#include "miniengine/miniengine.hpp"
 #include "TicTacToeBoard.hpp"
 #include "NoughtGraphic.hpp"
 #include "CrossGraphic.hpp"
@@ -19,7 +18,7 @@ enum GamePhase
     ShowingWinner
 };
 
-class TicTacToeGame : public Scene
+class TicTacToeGame : public miniengine::Scene
 {
 private:
     // Drawing stuff

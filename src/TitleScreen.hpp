@@ -4,16 +4,15 @@
 #include <vector>
 #include <functional>
 #include <map>
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include "shared.hpp"
-#include "Scene.hpp"
+#include "miniengine/miniengine.hpp"
 
-class TitleScreen : public Scene
+class TitleScreen : public miniengine::Scene
 {
 private:
     void setup();
     void update();
     void handleEvent(sf::Event& event);
-
-    std::vector<std::reference_wrapper<sf::Text>> m_textEntities;
 };

@@ -3,8 +3,7 @@
 void TitleScreen::setup()
 {
     sf::Text title("Susu", shared::font, 40);
-    m_textEntities.push_back(std::reference_wrapper<sf::Text>(title));
-    m_drawables.push_back(title);
+    m_drawables.push_back(std::make_shared<sf::Text>(title));
 }
 
 void TitleScreen::update()
