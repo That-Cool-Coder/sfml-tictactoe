@@ -1,29 +1,19 @@
 #include "TicTacToeGame.hpp"
-#include "GameManager.hpp"
 
 void TicTacToeGame::setup()
 {
     setupPlayerPromptMatrix();
-    loadFont();
     createBoard();
     createText();
-    startNewGame();
-}
-
-void TicTacToeGame::loadFont()
-{
-    if (! m_font.loadFromFile(m_fontFileName))
-    {
-        std::cout << "Could not load font from file " +
-            m_fontFileName + "\n";
-        std::cout << "The program will probably not work properly\n";
-    }
+    
+    m_board.clear();
+    m_crntPlayer = Cross; // todo: set this randomly
 }
 
 void TicTacToeGame::createText()
 {
     m_textEntities.clear();
-    m_playerPrompt.setFont(m_font);
+    m_playerPrompt.setFont(shared::font);
     m_playerPrompt.setCharacterSize(m_topBarHeight - 15);
     m_playerPrompt.setFillColor(m_textColor);
     m_textEntities.push_back(std::ref(m_playerPrompt));
@@ -40,54 +30,6 @@ void TicTacToeGame::setupPlayerPromptMatrix()
     m_playerPromptMatrix[Playing][Nought] = "Nought turn";
     m_playerPromptMatrix[ShowingWinner][Cross] = "Crosses wins";
     m_playerPromptMatrix[ShowingWinner][Nought] = "Noughts wins";
-}
-
-void TicTacToeGame::mainLoop()
-{
-    // while (m_window.isOpen())
-    // {
-    //     calcBoardSize();
-    //     m_window.clear(m_backgroundColor);
-
-    //     sf::Event event;
-    //     while (m_window.pollEvent(event))
-    //     {
-    //         if (event.type == sf::Event::Closed) m_window.close();
-    //         // catch the resize events
-    //         if (event.type == sf::Event::Resized)
-    //         {
-    //             // update the view to the new size of the window
-    //             gameManager->width = event.size.width;
-    //             gameManager->height = event.size.height;
-    //             sf::FloatRect visibleArea(0, 0, gameManager->width,  gameManager->height);
-    //             m_window.setView(sf::View(visibleArea));
-    //         }
-    //         if (event.type == sf::Event::MouseButtonPressed)
-    //         {
-    //             switch (m_gamePhase)
-    //             {
-    //             case Playing:
-    //                 setCellContents(event);
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     switch (m_gamePhase)
-    //     {
-    //     case Playing:
-    //         drawCellBorders();
-    //         drawCells();
-    //         updateText();
-    //         drawText();
-    //         break;
-    //     case ShowingWinner:
-    //         drawCellBorders();
-    //         drawCells();
-    //         updateText();
-    //         drawText();
-    //         break;
-    //     }
-    // }
 }
 
 void TicTacToeGame::update()
@@ -124,12 +66,6 @@ void TicTacToeGame::handleEvent(sf::Event& event)
             break;
         }
     }
-}
-
-void TicTacToeGame::startNewGame()
-{
-    m_board.clear();
-    m_crntPlayer = Cross; // todo: set this randomly
 }
 
 void TicTacToeGame::updateText()
