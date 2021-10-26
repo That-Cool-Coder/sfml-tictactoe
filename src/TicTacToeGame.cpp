@@ -71,15 +71,8 @@ void TicTacToeGame::handleEvent(sf::Event& event)
 void TicTacToeGame::updateText()
 {
     m_playerPrompt.setString(m_playerPromptMatrix[m_gamePhase][m_crntPlayer]);
-    centerAlignText(m_playerPrompt);
+    miniengine::utils::centerAlignText(m_playerPrompt);
     m_playerPrompt.setPosition(gameManager->width / 2, m_topBarHeight / 2);
-}
-
-void TicTacToeGame::centerAlignText(sf::Text &text)
-{
-    sf::FloatRect textRect = text.getLocalBounds();
-    text.setOrigin(textRect.left + textRect.width/2.0f,
-        textRect.top  + textRect.height/2.0f);
 }
 
 void TicTacToeGame::drawText()

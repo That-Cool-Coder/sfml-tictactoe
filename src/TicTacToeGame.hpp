@@ -49,7 +49,6 @@ private:
     void drawCells();
     void updateText();
     void drawText();
-    void centerAlignText(sf::Text &text);
     void setCellContents(sf::Event event);
 
     // Game logic stuff

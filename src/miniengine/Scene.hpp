@@ -16,7 +16,7 @@ namespace miniengine
         Scene(std::string i_name, sf::Color backgroundColor);
 
         std::string name = "";
-        // Yes pointers are not very modern but it's annoying typing '.get()' on the alternatives 
+        // Yes pointers are not very modern but it's annoying typing '.get()' on the alternatives (todo: use shared_ptr or unique_ptr)
         GameManager* gameManager = nullptr;
 
         void managerSetup();

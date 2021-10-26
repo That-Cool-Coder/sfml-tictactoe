@@ -15,4 +15,6 @@ private:
     void setup();
     void update();
     void handleEvent(sf::Event& event);
+
+    sf::Text m_title;
 };
