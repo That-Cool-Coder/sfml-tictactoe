@@ -29,7 +29,11 @@ namespace miniengine
             sf::Event event;
             while (window.pollEvent(event))
             {
-                if (event.type == sf::Event::Closed) window.close();
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                    return;
+                }
                 // catch the resize events
                 if (event.type == sf::Event::Resized)
                 {
@@ -47,6 +51,7 @@ namespace miniengine
                     }
                 }
             }
+            if (! window.isOpen()) break;
             if (m_crntScene != nullptr)
             {
                 m_crntScene->managerUpdate();

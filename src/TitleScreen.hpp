@@ -16,5 +16,6 @@ private:
     void update();
     void handleEvent(sf::Event& event);
 
-    sf::Text m_title;
+    std::shared_ptr<sf::Text> m_title;
+    std::shared_ptr<sf::Text> m_instructions;
 };
