@@ -21,6 +21,7 @@ public:
     void setCell(int x, int y, CellValue value);
     void clear();
     bool playerHasWon(CellValue playerValue);
+    bool isDraw();
 
 private:
     CellValue m_columns[BOARD_SIZE][BOARD_SIZE];

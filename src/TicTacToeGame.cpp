@@ -151,7 +151,7 @@ void TicTacToeGame::setCellContents(sf::Event event)
         if (m_board.getCell(xCoord, yCoord) == Empty)
         {
             m_board.setCell(xCoord, yCoord, m_crntPlayer);
-            if (m_board.playerHasWon(m_crntPlayer))
+            if (m_board.playerHasWon(m_crntPlayer) || m_board.isDraw())
             {
                 m_gamePhase = ShowingWinner;
             }

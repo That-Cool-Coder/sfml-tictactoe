@@ -99,3 +99,20 @@ bool TicTacToeBoard::playerHasWon(CellValue playerValue)
     // If nothing has been found then the player has not won
     return false;
 }
+
+bool TicTacToeBoard::isDraw()
+{
+    /* A draw is defined when all of the cells in the board have been filled.
+    We assume that it's a draw and then check to see if any spaces are vacant.
+    If they are vacant, then it's not a draw
+    */
+
+    for (int row = 0; row < BOARD_SIZE; row ++)
+    {
+        for (int col = 0; col < BOARD_SIZE; col ++)
+        {
+            if (getCell(col, row) == Empty) return false;
+        }
+    }
+    return true;
+}
