@@ -32,7 +32,6 @@ namespace miniengine
                 if (event.type == sf::Event::Closed)
                 {
                     window.close();
-                    return;
                 }
                 // catch the resize events
                 if (event.type == sf::Event::Resized)
@@ -51,12 +50,11 @@ namespace miniengine
                     }
                 }
             }
-            if (! window.isOpen()) break;
-            if (m_crntScene != nullptr)
+            if (m_crntScene != nullptr && window.isOpen());
             {
                 m_crntScene->managerUpdate();
+                window.display();
             }
-            window.display();
 
             // Try and get as close to n fps as possible
             float frameTime = m_frameClock.getElapsedTime().asSeconds();
