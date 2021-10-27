@@ -8,6 +8,13 @@ void TitleScreen::setup()
     m_title->setCharacterSize(50);
     m_drawables.push_back(m_title);
 
+    // m_playButton = std::make_shared<miniengine::Button>();
+    // m_playButton->setSize(sf::Vector2f(100.0f, 40.0f));
+    // m_playButton->setFillColor(sf::Color::Red);
+    // m_playButton->setCharacterSize(30.0f);
+    // m_playButton->setFont(shared::font);
+    // m_playButton->setString("Button!");
+
     m_instructions = std::make_shared<sf::Text>();
     m_instructions->setString("Click to start");
     m_instructions->setFont(shared::font);
