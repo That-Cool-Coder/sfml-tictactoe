@@ -38,7 +38,7 @@ void TicTacToeGame::update()
         drawCellBorders();
         drawCells();
         updateText();
-        gameManager->forceRedraw();
+        gameManager->forceRedraw(false);
         sf::sleep(sf::seconds(m_showWinnerDuration));
         gameManager->queueLoadScene("TicTacToeGame");
         break;
@@ -170,7 +170,6 @@ void TicTacToeGame::setCellContents(sf::Event event)
             }
             else
             {
-                std::cout << (int) m_winner << std::endl;
                 m_gamePhase = ShowingWinner;
             }
         }

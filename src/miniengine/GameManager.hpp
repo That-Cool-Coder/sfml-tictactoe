@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include <memory>
+#include <functional>
 #include <SFML/Graphics.hpp>
 #include "Scene.hpp"
 
@@ -18,7 +19,7 @@ namespace miniengine
         void loadScene(std::shared_ptr<Scene> scene);
         void queueLoadScene(std::string sceneName);
         void queueLoadScene(std::shared_ptr<Scene> scene);
-        void forceRedraw();
+        void forceRedraw(bool clearWindow = true);
 
         sf::RenderWindow window;
         std::map<std::string, std::function<std::shared_ptr<Scene>()>> scenes;

@@ -1,4 +1,4 @@
 #!/bin/sh
-cd "${0%/*}" # cd to folder containing this file
+# Presumes that the CWD is the root of this project
 
-(sh build.sh) && cd .. && ./build/bin/tictactoe
+(sh scripts/build.sh) &&  ./build/bin/tictactoe

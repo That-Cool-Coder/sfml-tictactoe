@@ -26,9 +26,14 @@ namespace miniengine
 
     void Scene::managerUpdate()
     {
-        gameManager->window.clear(m_backgroundColor);
+        managerClear();
+        managerDraw();
         update();
-        draw();
+    }
+
+    void Scene::managerClear()
+    {
+        gameManager->window.clear(m_backgroundColor);
     }
 
     void Scene::managerDraw()

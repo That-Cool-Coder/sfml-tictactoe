@@ -1,6 +1,6 @@
 #!/bin/sh
-cd "${0%/*}" # cd to folder containing this file
-cd ../build
+# Presumes that the CWD is the root of this project
+cd build
 
 cmake .. -Wno-dev
 cmake --build . --parallel $(nproc)

@@ -11,6 +11,8 @@ namespace miniengine
     class Scene
     {
     public:
+        friend GameManager;
+
         Scene();
         Scene(std::string i_name);
         Scene(std::string i_name, sf::Color backgroundColor);
@@ -19,15 +21,16 @@ namespace miniengine
         // Yes pointers are not very modern but it's annoying typing '.get()' on the alternatives (todo: use shared_ptr or unique_ptr)
         GameManager* gameManager = nullptr;
 
-        void managerSetup();
-        void managerUpdate();
-        void managerHandleEvent(sf::Event& event);
-        void managerDraw(); // used for force redrawing
-
     private:
         virtual void setup();
         virtual void update();
         virtual void handleEvent(sf::Event& event);
+
+        void managerSetup();
+        void managerUpdate();
+        void managerHandleEvent(sf::Event& event);
+        void managerClear();
+        void managerDraw(); // used for force redrawing
 
         sf::Color m_backgroundColor = sf::Color::Black;
     protected:

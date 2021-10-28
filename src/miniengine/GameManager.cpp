@@ -104,10 +104,11 @@ namespace miniengine
         m_queuedScene = scene;
     }
 
-    void GameManager::forceRedraw()
+    void GameManager::forceRedraw(bool clearWindow)
     {
         if (m_crntScene != nullptr)
         {
+            if (clearWindow) m_crntScene->managerClear();
             m_crntScene->managerDraw();
         }
         window.display();
