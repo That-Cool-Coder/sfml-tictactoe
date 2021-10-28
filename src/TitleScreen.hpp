@@ -17,6 +17,5 @@ private:
     void handleEvent(sf::Event& event);
 
     std::shared_ptr<sf::Text> m_title;
-    std::shared_ptr<sf::Text> m_instructions;
     std::shared_ptr<miniengine::Button> m_playButton;
 };

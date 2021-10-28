@@ -1,11 +1,12 @@
 #include "Button.hpp"
+#include <iostream>
 
 namespace miniengine
 {
 
     bool Button::isPressed(sf::Event& event)
     {
-        if (event.type == sf::Event::MouseButtonReleased)
+        if (event.type == sf::Event::MouseButtonPressed)
         {
             sf::Vector2f clickPosition(event.mouseButton.x, event.mouseButton.y);
             return (m_backgroundRect.getGlobalBounds().contains(clickPosition));
