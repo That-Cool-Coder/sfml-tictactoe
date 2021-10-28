@@ -55,7 +55,7 @@ private:
     TicTacToeBoard m_board;
     CellValue m_crntPlayer;
     GamePhase m_gamePhase = Playing;
-    const float m_showWinnerDuration = 2.0f;
+    miniengine::Timer m_showWinnerTimer = miniengine::Timer(sf::seconds(3));
     Winner m_winner = Winner::GameNotFinished;
 
     void createBoard();

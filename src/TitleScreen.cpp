@@ -29,7 +29,6 @@ void TitleScreen::handleEvent(sf::Event& event)
 {
     if (m_playButton->isPressed(event))
     {
-        std::cout << "clicked" << std::endl;
         gameManager->queueLoadScene("TicTacToeGame");
     }
 }

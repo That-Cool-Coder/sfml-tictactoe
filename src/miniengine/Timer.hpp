@@ -10,9 +10,11 @@ namespace miniengine
         In future
         */
     public:
+        Timer(sf::Time i_duration);
         void start();
         bool isFinished();
         sf::Time duration;
+        bool running;
     private:
         sf::Clock m_clock;
     };

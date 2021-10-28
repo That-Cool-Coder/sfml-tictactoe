@@ -38,9 +38,8 @@ void TicTacToeGame::update()
         drawCellBorders();
         drawCells();
         updateText();
-        gameManager->forceRedraw(false);
-        sf::sleep(sf::seconds(m_showWinnerDuration));
-        gameManager->queueLoadScene("TicTacToeGame");
+        if (m_showWinnerTimer.isFinished()) gameManager->queueLoadScene("TitleScreen");
+        if (! m_showWinnerTimer.running) m_showWinnerTimer.start();
         break;
     }
 }

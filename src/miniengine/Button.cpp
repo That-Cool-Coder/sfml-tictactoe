@@ -1,9 +1,7 @@
 #include "Button.hpp"
-#include <iostream>
 
 namespace miniengine
 {
-
     bool Button::isPressed(sf::Event& event)
     {
         if (event.type == sf::Event::MouseButtonPressed)
