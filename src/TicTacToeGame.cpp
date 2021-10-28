@@ -2,34 +2,26 @@
 
 void TicTacToeGame::setup()
 {
-    setupPlayerPromptMatrix();
     createBoard();
     createText();
     
     m_board.clear();
-    m_crntPlayer = Cross; // todo: set this randomly
+    m_crntPlayer = CellValue::Cross; // todo: set this randomly
 }
 
 void TicTacToeGame::createText()
 {
     m_textEntities.clear();
-    m_playerPrompt.setFont(shared::font);
-    m_playerPrompt.setCharacterSize(m_topBarHeight - 15);
-    m_playerPrompt.setFillColor(m_textColor);
-    m_textEntities.push_back(std::ref(m_playerPrompt));
+    m_headingText = std::make_shared<sf::Text>();
+    m_headingText->setFont(shared::font);
+    m_headingText->setCharacterSize(m_topBarHeight - 15);
+    m_headingText->setFillColor(m_textColor);
+    m_drawables.push_back(m_headingText);
 }
 
 void TicTacToeGame::createBoard()
 {
     m_board = TicTacToeBoard();
-}
-
-void TicTacToeGame::setupPlayerPromptMatrix()
-{
-    m_playerPromptMatrix[Playing][Cross] = "Cross turn";
-    m_playerPromptMatrix[Playing][Nought] = "Nought turn";
-    m_playerPromptMatrix[ShowingWinner][Cross] = "Crosses wins";
-    m_playerPromptMatrix[ShowingWinner][Nought] = "Noughts wins";
 }
 
 void TicTacToeGame::update()
@@ -41,13 +33,11 @@ void TicTacToeGame::update()
         drawCellBorders();
         drawCells();
         updateText();
-        drawText();
         break;
     case ShowingWinner:
         drawCellBorders();
         drawCells();
         updateText();
-        drawText();
         gameManager->forceRedraw();
         sf::sleep(sf::seconds(m_showWinnerDuration));
         gameManager->queueLoadScene("TicTacToeGame");
@@ -70,17 +60,38 @@ void TicTacToeGame::handleEvent(sf::Event& event)
 
 void TicTacToeGame::updateText()
 {
-    m_playerPrompt.setString(m_playerPromptMatrix[m_gamePhase][m_crntPlayer]);
-    miniengine::utils::centerAlignText(m_playerPrompt);
-    m_playerPrompt.setPosition(gameManager->width / 2, m_topBarHeight / 2);
-}
-
-void TicTacToeGame::drawText()
-{
-    for (auto text : m_textEntities)
+    std::string headingTextContent = "Error: no text supplied for this heading";
+    switch (m_gamePhase)
     {
-        gameManager->window.draw(text);
+    case Playing:
+        switch (m_crntPlayer)
+        {
+        case CellValue::Nought:
+            headingTextContent = "Noughts turn";
+            break;
+        case CellValue::Cross:
+            headingTextContent = "Crosses turn";
+            break;
+        }
+        break;
+    case ShowingWinner:
+        switch (m_winner)
+        {
+        case Winner::Nought:
+            headingTextContent = "Noughts wins";
+            break;
+        case Winner::Cross:
+            headingTextContent = "Crosses wins";
+            break;
+        case Winner::Draw:
+            headingTextContent = "It's a draw";
+            break;
+        }
+        break;
     }
+    m_headingText->setString(headingTextContent);
+    miniengine::utils::centerAlignText(*m_headingText);
+    m_headingText->setPosition(gameManager->width / 2, m_topBarHeight / 2);
 }
 
 void TicTacToeGame::calcBoardSize()
@@ -130,9 +141,9 @@ void TicTacToeGame::drawCells()
         {
             int xPos = x * m_cellSize + m_cellSize / 2 + m_boardLeft;
             int yPos = y * m_cellSize + m_cellSize / 2 + m_boardTop;
-            if (m_board.getCell(x, y) == Nought)
+            if (m_board.getCell(x, y) == CellValue::Nought)
                 nought.draw(xPos, yPos, gameManager->window, m_backgroundColor);
-            else if (m_board.getCell(x, y) == Cross)
+            else if (m_board.getCell(x, y) == CellValue::Cross)
                 cross.draw(xPos, yPos, gameManager->window);
         }
     }
@@ -148,17 +159,19 @@ void TicTacToeGame::setCellContents(sf::Event event)
     if (xCoord >= 0 && xCoord < BOARD_SIZE &&
         yCoord >= 0 && yCoord < BOARD_SIZE)
     {
-        if (m_board.getCell(xCoord, yCoord) == Empty)
+        if (m_board.getCell(xCoord, yCoord) == CellValue::Empty)
         {
             m_board.setCell(xCoord, yCoord, m_crntPlayer);
-            if (m_board.playerHasWon(m_crntPlayer) || m_board.isDraw())
+            m_winner = m_board.findWinner();
+            if (m_winner == Winner::GameNotFinished)
             {
-                m_gamePhase = ShowingWinner;
+                if (m_crntPlayer == CellValue::Nought) m_crntPlayer = CellValue::Cross;
+                else m_crntPlayer = CellValue::Nought;
             }
             else
             {
-                if (m_crntPlayer == Nought) m_crntPlayer = Cross;
-                else m_crntPlayer = Nought;
+                std::cout << (int) m_winner << std::endl;
+                m_gamePhase = ShowingWinner;
             }
         }
     }

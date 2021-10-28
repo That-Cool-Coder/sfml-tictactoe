@@ -22,6 +22,7 @@ namespace miniengine
         void managerSetup();
         void managerUpdate();
         void managerHandleEvent(sf::Event& event);
+        void managerDraw(); // used for force redrawing
 
     private:
         virtual void setup();

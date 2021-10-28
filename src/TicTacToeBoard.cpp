@@ -13,7 +13,7 @@ CellValue TicTacToeBoard::getCell(int x, int y)
     }
     else
     {
-        return OffBoard;
+        return CellValue::OffBoard;
     }
 }
 
@@ -31,9 +31,17 @@ void TicTacToeBoard::clear()
     {
         for (int y = 0; y < BOARD_SIZE; y ++)
         {
-            setCell(x, y, Empty);
+            setCell(x, y, CellValue::Empty);
         }
     }
+}
+
+Winner TicTacToeBoard::findWinner()
+{
+    if (playerHasWon(CellValue::Nought)) return Winner::Nought;
+    else if (playerHasWon(CellValue::Cross)) return Winner::Cross;
+    else if (isDraw()) return Winner::Draw;
+    else return Winner::GameNotFinished;
 }
 
 bool TicTacToeBoard::playerHasWon(CellValue playerValue)
@@ -111,7 +119,7 @@ bool TicTacToeBoard::isDraw()
     {
         for (int col = 0; col < BOARD_SIZE; col ++)
         {
-            if (getCell(col, row) == Empty) return false;
+            if (getCell(col, row) == CellValue::Empty) return false;
         }
     }
     return true;

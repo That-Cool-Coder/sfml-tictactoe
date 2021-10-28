@@ -36,7 +36,7 @@ private:
     int m_cellSize;
     int m_boardLeft;
     int m_boardTop;
-    sf::Text m_playerPrompt;
+    std::shared_ptr<sf::Text> m_headingText;
 
     void setup();
     void update();
@@ -48,7 +48,6 @@ private:
     void drawCellBorders();
     void drawCells();
     void updateText();
-    void drawText();
     void setCellContents(sf::Event event);
 
     // Game logic stuff
@@ -57,8 +56,7 @@ private:
     CellValue m_crntPlayer;
     GamePhase m_gamePhase = Playing;
     const float m_showWinnerDuration = 2.0f;
-    std ::map<GamePhase, std::map<CellValue, std::string>> m_playerPromptMatrix;
+    Winner m_winner = Winner::GameNotFinished;
 
     void createBoard();
-    void setupPlayerPromptMatrix();
 };

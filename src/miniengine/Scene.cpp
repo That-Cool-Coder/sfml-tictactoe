@@ -28,6 +28,11 @@ namespace miniengine
     {
         gameManager->window.clear(m_backgroundColor);
         update();
+        draw();
+    }
+
+    void Scene::managerDraw()
+    {
         for (auto d : m_drawables)
         {
             gameManager->window.draw(*d);

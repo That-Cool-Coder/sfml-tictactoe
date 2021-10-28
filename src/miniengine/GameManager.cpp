@@ -53,6 +53,7 @@ namespace miniengine
             if (m_crntScene != nullptr && window.isOpen());
             {
                 m_crntScene->managerUpdate();
+                m_crntScene->managerDraw();
                 window.display();
             }
 
@@ -105,6 +106,10 @@ namespace miniengine
 
     void GameManager::forceRedraw()
     {
+        if (m_crntScene != nullptr)
+        {
+            m_crntScene->managerDraw();
+        }
         window.display();
     }
 
