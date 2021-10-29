@@ -2,6 +2,12 @@
 
 namespace miniengine
 {
+    Button::Button()
+    {
+        m_backgroundRect.setOrigin(sf::Vector2f(0.5, 0.5));
+        m_text.setOrigin(sf::Vector2f(0.5, 0.5));
+    }
+
     bool Button::isPressed(sf::Event& event)
     {
         if (event.type == sf::Event::MouseButtonPressed)
@@ -23,10 +29,11 @@ namespace miniengine
 
     void Button::updateComponents()
     {
-        m_backgroundRect.setPosition(m_position - m_size / 2.0f);
+        m_backgroundRect.setPosition(m_position);
         m_backgroundRect.setSize(m_size);
+        m_backgroundRect.setRotation(m_rotation);
         m_text.setPosition(m_position);
-        utils::centerAlignText(m_text);
+        m_text.setRotation(m_rotation);
     }
     
     // Global SFML stuff
@@ -40,6 +47,11 @@ namespace miniengine
     void Button::setPosition(float x, float y)
     {
         setPosition(sf::Vector2f(x, y));
+    }
+
+    void Button::setRotation(float rotation)
+    {
+        m_rotation = rotation;
     }
 
     // Text stuff
@@ -73,6 +85,18 @@ namespace miniengine
     void Button::setSize(sf::Vector2f size)
     {
         m_size = size;
+        updateComponents();
+    }
+
+    void Button::setOutlineColor(sf::Color color)
+    {
+        m_backgroundRect.setOutlineColor(color);
+        updateComponents();
+    }
+
+    void Button::setOutlineThickness(float thickness)
+    {
+        m_backgroundRect.setOutlineThickness(thickness);
         updateComponents();
     }
 }
