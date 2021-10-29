@@ -38,8 +38,8 @@ void TicTacToeGame::update()
         drawCellBorders();
         drawCells();
         updateText();
-        if (m_showWinnerTimer.isFinished()) gameManager->queueLoadScene("TitleScreen");
         if (! m_showWinnerTimer.running) m_showWinnerTimer.start();
+        if (m_showWinnerTimer.isFinished()) gameManager->queueLoadScene("TitleScreen");
         break;
     }
 }
@@ -59,6 +59,9 @@ void TicTacToeGame::handleEvent(sf::Event& event)
 
 void TicTacToeGame::updateText()
 {
+    // Yes this is a big and convoluted nested switch-case
+    // But I couldn't find a way to put this into a table lookup because of the differing
+    // data types
     std::string headingTextContent = "Error: no text supplied for this heading";
     switch (m_gamePhase)
     {
@@ -83,7 +86,7 @@ void TicTacToeGame::updateText()
             headingTextContent = "Crosses wins";
             break;
         case Winner::Draw:
-            headingTextContent = "It's a draw";
+            headingTextContent = "Draw";
             break;
         }
         break;
