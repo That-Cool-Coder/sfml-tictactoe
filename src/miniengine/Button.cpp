@@ -4,8 +4,7 @@ namespace miniengine
 {
     Button::Button()
     {
-        m_backgroundRect.setOrigin(sf::Vector2f(0.5, 0.5));
-        m_text.setOrigin(sf::Vector2f(0.5, 0.5));
+        
     }
 
     bool Button::isPressed(sf::Event& event)
@@ -29,11 +28,12 @@ namespace miniengine
 
     void Button::updateComponents()
     {
-        m_backgroundRect.setPosition(m_position);
+        m_backgroundRect.setPosition(m_position - m_size / 2.0f);
         m_backgroundRect.setSize(m_size);
         m_backgroundRect.setRotation(m_rotation);
         m_text.setPosition(m_position);
         m_text.setRotation(m_rotation);
+        utils::centerAlignText(m_text);
     }
     
     // Global SFML stuff
