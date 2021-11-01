@@ -27,6 +27,7 @@ namespace miniengine
         int width = 500;
         int height = 500;
         float deltaTime;
+        long frameCount;
 
     private:
         void setupWindow();

@@ -24,8 +24,10 @@ namespace miniengine
     void GameManager::mainLoop()
     {
         bool running = true;
+        frameCount = 0;
         while (running)
         {
+            std::cout << "Starting " << frameCount << std::endl;
             // std::cout << "Start frame" << std::endl;
             // m_frameClock.restart();
             sf::Event event;
@@ -35,6 +37,7 @@ namespace miniengine
                 {
                     window.close();
                     running = false;
+                    std::cout << "Closing " << frameCount << std::endl;
                     // std::cout << "Handled close" << std::endl;
                 }
                 if (event.type == sf::Event::Resized)
@@ -55,7 +58,8 @@ namespace miniengine
             }
             if (m_crntScene != nullptr && window.isOpen())
             {
-                // m_crntScene->managerUpdate();
+                std::cout << "Updating " << frameCount << std::endl;
+                m_crntScene->managerUpdate();
                 window.display();
             }
 
@@ -71,6 +75,7 @@ namespace miniengine
             //     loadScene(m_queuedScene);
             // }
             // std::cout << "End frame" << std::endl;
+            frameCount ++;
         }
     }
 

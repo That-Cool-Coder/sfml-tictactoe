@@ -42,6 +42,7 @@ namespace miniengine
         {
             gameManager->window.draw(*d);
         }
+        std::cout << "Drawing " << gameManager->frameCount << std::endl;
     }
 
     void Scene::managerHandleEvent(sf::Event& event)
