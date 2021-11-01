@@ -23,17 +23,20 @@ namespace miniengine
 
     void GameManager::mainLoop()
     {
-        while (window.isOpen())
+        bool running = true;
+        while (running)
         {
-            m_frameClock.restart();
+            // std::cout << "Start frame" << std::endl;
+            // m_frameClock.restart();
             sf::Event event;
             while (window.pollEvent(event))
             {
                 if (event.type == sf::Event::Closed)
                 {
                     window.close();
+                    running = false;
+                    // std::cout << "Handled close" << std::endl;
                 }
-                // catch the resize events
                 if (event.type == sf::Event::Resized)
                 {
                     // update the view to the new size of the window
@@ -42,32 +45,32 @@ namespace miniengine
                     sf::FloatRect visibleArea(0, 0, width,  height);
                     window.setView(sf::View(visibleArea));
                 }
-                if (event.type == sf::Event::MouseButtonPressed)
-                {
-                    if (m_crntScene != nullptr)
-                    {
-                        m_crntScene->managerHandleEvent(event);
-                    }
-                }
+                // if (event.type == sf::Event::MouseButtonPressed)
+                // {
+                //     if (m_crntScene != nullptr)
+                //     {
+                //         m_crntScene->managerHandleEvent(event);
+                //     }
+                // }
             }
-            if (m_crntScene != nullptr && window.isOpen());
+            if (m_crntScene != nullptr && window.isOpen())
             {
-                m_crntScene->managerUpdate();
-                m_crntScene->managerDraw();
+                // m_crntScene->managerUpdate();
                 window.display();
             }
 
-            // Try and get as close to n fps as possible
-            float frameTime = m_frameClock.getElapsedTime().asSeconds();
-            float timeSlept = std::min(0.0f, m_frameRate - frameTime);
-            sf::sleep(sf::seconds(timeSlept));
-            deltaTime = frameTime + timeSlept;
+            // // Try and get as close to n fps as possible
+            // float frameTime = m_frameClock.getElapsedTime().asSeconds();
+            // float timeSlept = std::min(0.0f, m_frameRate - frameTime);
+            // sf::sleep(sf::seconds(timeSlept));
+            // deltaTime = frameTime + timeSlept;
 
-            // If there's a scene queued to be selected, select it now that we're at the end of a frame
-            if (m_queuedScene != m_crntScene && m_queuedScene != nullptr)
-            {
-                loadScene(m_queuedScene);
-            }
+            // // If there's a scene queued to be selected, select it now that we're at the end of a frame
+            // if (m_queuedScene != m_crntScene && m_queuedScene != nullptr)
+            // {
+            //     loadScene(m_queuedScene);
+            // }
+            // std::cout << "End frame" << std::endl;
         }
     }
 

@@ -6,7 +6,7 @@
 
 int main()
 {
-    shared::loadFont("SpaceGrotesk-Regular.otf");
+    // shared::loadFont("SpaceGrotesk-Regular.otf");
     miniengine::GameManager gameManager("Tic Tac Toe");
     gameManager.scenes["TicTacToeGame"] = [&] { return std::make_shared<TicTacToeGame>(); };
     gameManager.scenes["TitleScreen"] = [&] { return std::make_shared<TitleScreen>(); };
