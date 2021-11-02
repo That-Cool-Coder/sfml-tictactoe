@@ -28,8 +28,7 @@ namespace miniengine
         while (running)
         {
             std::cout << "Starting " << frameCount << std::endl;
-            // std::cout << "Start frame" << std::endl;
-            // m_frameClock.restart();
+            m_frameClock.restart();
             sf::Event event;
             while (window.pollEvent(event))
             {
@@ -38,7 +37,6 @@ namespace miniengine
                     window.close();
                     running = false;
                     std::cout << "Closing " << frameCount << std::endl;
-                    // std::cout << "Handled close" << std::endl;
                 }
                 if (event.type == sf::Event::Resized)
                 {
@@ -63,18 +61,17 @@ namespace miniengine
                 window.display();
             }
 
-            // // Try and get as close to n fps as possible
-            // float frameTime = m_frameClock.getElapsedTime().asSeconds();
-            // float timeSlept = std::min(0.0f, m_frameRate - frameTime);
-            // sf::sleep(sf::seconds(timeSlept));
-            // deltaTime = frameTime + timeSlept;
+            // Try and get as close to n fps as possible
+            float frameTime = m_frameClock.getElapsedTime().asSeconds();
+            float timeSlept = std::max(0.0f, frameRate - frameTime);
+            sf::sleep(sf::seconds(timeSlept));
+            deltaTime = frameTime + timeSlept;
 
             // // If there's a scene queued to be selected, select it now that we're at the end of a frame
             // if (m_queuedScene != m_crntScene && m_queuedScene != nullptr)
             // {
             //     loadScene(m_queuedScene);
             // }
-            // std::cout << "End frame" << std::endl;
             frameCount ++;
         }
     }

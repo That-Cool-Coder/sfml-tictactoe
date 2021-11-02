@@ -21,9 +21,13 @@ namespace miniengine
         void queueLoadScene(std::shared_ptr<Scene> scene);
         void forceRedraw(bool clearWindow = true);
 
-        sf::RenderWindow window;
+        // Set and get
         std::map<std::string, std::function<std::shared_ptr<Scene>()>> scenes;
         std::string windowName = "Unnamed window";
+        float frameRate = 1.0f / 60.0f;
+
+        // Get but don't set
+        sf::RenderWindow window;
         int width = 500;
         int height = 500;
         float deltaTime;
@@ -34,7 +38,6 @@ namespace miniengine
 
         std::shared_ptr<Scene> m_crntScene = nullptr;
         std::shared_ptr<Scene> m_queuedScene = nullptr;
-        const float m_frameRate = 1.0f / 60.0f;
         sf::Clock m_frameClock;
     };
 }

@@ -18,7 +18,6 @@ namespace miniengine
         name = i_name;
         m_backgroundColor = backgroundColor;
     }
-
     void Scene::managerSetup()
     {
         setup();
@@ -38,11 +37,11 @@ namespace miniengine
 
     void Scene::managerDraw()
     {
+        std::cout << "Drawing " << gameManager->frameCount << std::endl;
         for (auto d : m_drawables)
         {
-            gameManager->window.draw(*d);
+            // gameManager->window.draw(*d);
         }
-        std::cout << "Drawing " << gameManager->frameCount << std::endl;
     }
 
     void Scene::managerHandleEvent(sf::Event& event)

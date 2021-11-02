@@ -15,7 +15,7 @@ void TitleScreen::setup()
     // m_playButton->setCharacterSize(30);
     // m_playButton->setFont(shared::font);
     // m_playButton->setString("Play");
-    // m_drawables.push_back(m_playButton);  
+    // m_drawables.push_back(m_playButton);
 }
 
 void TitleScreen::update()

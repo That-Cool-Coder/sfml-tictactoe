@@ -10,6 +10,6 @@ int main()
     miniengine::GameManager gameManager("Tic Tac Toe");
     gameManager.scenes["TicTacToeGame"] = [&] { return std::make_shared<TicTacToeGame>(); };
     gameManager.scenes["TitleScreen"] = [&] { return std::make_shared<TitleScreen>(); };
-    gameManager.loadScene("TitleScreen");
+    gameManager.loadScene(std::make_shared<TitleScreen>());
     gameManager.mainLoop();
 }
