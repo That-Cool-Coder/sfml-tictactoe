@@ -21,6 +21,11 @@ namespace miniengine
         setupWindow();
     }
 
+    GameManager::~GameManager()
+    {
+        std::cout << "Destructing GM" << std::endl;
+    }
+
     void GameManager::mainLoop()
     {
         bool running = true;
@@ -34,6 +39,7 @@ namespace miniengine
             {
                 if (event.type == sf::Event::Closed)
                 {
+                    window.setActive(false);
                     window.close();
                     running = false;
                     std::cout << "Closing " << frameCount << std::endl;
@@ -60,6 +66,10 @@ namespace miniengine
                 m_crntScene->managerUpdate();
                 window.display();
             }
+            else
+            {
+                std::cout << "Not updating  " << frameCount << std::endl;
+            }
 
             // Try and get as close to n fps as possible
             float frameTime = m_frameClock.getElapsedTime().asSeconds();
@@ -72,6 +82,7 @@ namespace miniengine
             // {
             //     loadScene(m_queuedScene);
             // }
+            std::cout << "Ending " << frameCount << std::endl;
             frameCount ++;
         }
     }

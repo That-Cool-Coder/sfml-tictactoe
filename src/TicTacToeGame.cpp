@@ -16,7 +16,7 @@ void TicTacToeGame::createText()
     m_headingText->setFont(shared::font);
     m_headingText->setCharacterSize(m_topBarHeight - 15);
     m_headingText->setFillColor(m_textColor);
-    m_drawables.push_back(m_headingText);
+    // m_drawables.push_back(m_headingText);
 }
 
 void TicTacToeGame::createBoard()

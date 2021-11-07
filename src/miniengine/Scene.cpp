@@ -1,5 +1,6 @@
 #include "Scene.hpp"
 #include "GameManager.hpp"
+#include <iostream>
 
 namespace miniengine
 {
@@ -18,6 +19,12 @@ namespace miniengine
         name = i_name;
         m_backgroundColor = backgroundColor;
     }
+
+    Scene::~Scene()
+    {
+        std::cout << "Destroying scene" << name << std::endl;
+    }
+
     void Scene::managerSetup()
     {
         setup();
@@ -40,7 +47,7 @@ namespace miniengine
         std::cout << "Drawing " << gameManager->frameCount << std::endl;
         for (auto d : m_drawables)
         {
-            // gameManager->window.draw(*d);
+            gameManager->window.draw(*d);
         }
     }
 

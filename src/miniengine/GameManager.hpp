@@ -13,6 +13,7 @@ namespace miniengine
         GameManager();
         GameManager(std::string i_windowName);
         GameManager(std::string i_windowName, int width, int height);
+        ~GameManager();
         
         void mainLoop();
         void loadScene(std::string sceneName);
